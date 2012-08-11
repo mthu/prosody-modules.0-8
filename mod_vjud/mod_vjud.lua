@@ -33,7 +33,6 @@ local base_host = module:get_option_string("vjud_search_domain",
 		and module.host:gsub("^[^.]+%.","")
 		or module.host);
 
-module:depends"disco";
 module:add_feature("jabber:iq:search");
 
 local opted_in;
