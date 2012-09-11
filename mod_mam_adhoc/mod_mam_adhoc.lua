@@ -110,4 +110,4 @@ local function mam_prefs_handler(self, data, state)
 	end
 end
 
-module:provides("adhoc", module:require"adhoc".new("Archive settings", "urn:xmpp:mam#configure", mam_prefs_handler));
+module:add_item("adhoc", module:require"adhoc".new("Archive settings", "urn:xmpp:mam#configure", mam_prefs_handler));
