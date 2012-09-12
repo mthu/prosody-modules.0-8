@@ -9,7 +9,6 @@ local guard_protect = module:get_option_set("host_guard_selective", {})
 local guard_block_bl = module:get_option_set("host_guard_blacklist", {})
 
 local s2smanager = require "core.s2smanager"
-local config = require "core.configmanager"
 local nameprep = require "util.encodings".stringprep.nameprep
 
 local _make_connect = s2smanager.make_connect
