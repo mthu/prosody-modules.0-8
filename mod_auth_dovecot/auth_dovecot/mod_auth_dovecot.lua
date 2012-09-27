@@ -25,7 +25,7 @@ local new_sasl = function(realm)
 		service_realm or realm,
 		service_name or "xmpp",
 
-		socket_port and { socket_path, socket_port } or socket_path,
+		socket_port and { socket_host, socket_port } or socket_path,
 
 		{ --config
 			handle_domain = handle_appended or
