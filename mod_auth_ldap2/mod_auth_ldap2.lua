@@ -20,7 +20,7 @@ if not ldap then
     return;
 end
 
-local provider = { name = 'ldap' };
+local provider = { name = 'ldap2' };
 
 function provider.test_password(username, password)
     return ldap.bind(username, password);
