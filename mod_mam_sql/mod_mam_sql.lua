@@ -100,7 +100,7 @@ function getsql(sql, ...)
 	-- Check db connection
 	-- Since getsql is always called once per transaction, we can try to reconnect here.
 	-- This have to be changed if there are two subsequent calls of getsql within one transaction
-	ok, err = connect();
+	local ok, err = connect();
 	if not ok then module:log("error", "DB RECONNECT FAILED: %s", err); return nil, err; end
 
 	-- do prepared statement stuff
