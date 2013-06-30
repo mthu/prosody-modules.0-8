@@ -1,5 +1,6 @@
 -- XEP-0313: Message Archive Management for Prosody
 -- Copyright (C) 2011-2012 Kim Alvefur
+-- Slightly modified by Martin Plicka
 --
 -- This file is MIT/X11 licensed.
 
@@ -96,14 +97,19 @@ function getsql(sql, ...)
 	if params.driver == "PostgreSQL" then
 		sql = sql:gsub("`", "\"");
 	end
+	-- Check db connection
+	-- Since getsql is always called once per transaction, we can try to reconnect here.
+	-- This have to be changed if there are two subsequent calls of getsql within one transaction
+	ok, err = connect();
+	if not ok then module:log("error", "DB RECONNECT FAILED: %s", err); return nil, err; end
+
 	-- do prepared statement stuff
 	local stmt, err = connection:prepare(sql);
-	if not stmt and not test_connection() then error("connection failed"); end
 	if not stmt then module:log("error", "QUERY FAILED: %s %s", err, debug.traceback()); return nil, err; end
+
 	-- run query
 	local ok, err = stmt:execute(...);
-	if not ok and not test_connection() then error("connection failed"); end
-	if not ok then return nil, err; end
+	if not ok then module:log("error", "QUERY FAILED: %s %s", err, debug.traceback()); return nil, err; end
 	
 	return stmt;
 end
